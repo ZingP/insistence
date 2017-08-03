@@ -25,6 +25,7 @@ if __name__ == '__main__':
     # 父进程创建Queue，并传给各个子进程。
     q = Queue()
     pw = Process(target=write, args=(q,))
+
     pr = Process(target=read, args=(q,))
     pw.start()
     pr.start()
