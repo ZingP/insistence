@@ -7,16 +7,7 @@
 """
 import random
 import time
-
-def cost_time(func):
-    def wrapper(*args, **kwargs):
-        start = time.time()
-        func(*args, **kwargs)
-        end = time.time()
-        cost = "cost_time>>:%s" % (end-start)
-        return cost
-    return wrapper
-
+improt cProfile
 
 def sift(array, left, right):
     """调整"""
@@ -33,7 +24,6 @@ def sift(array, left, right):
         else:                                       # 否则就是父节点比大孩子大，则终止循环
             break
     array[i] = tmp                                  # 最后i的位置由于是之前大孩子上位了，是空的，而这个位置是根节点的正确位置。
-
 
 def heap(array):
     n = len(array)
@@ -54,7 +44,6 @@ heap(array)
 print(array)
 
 # 运行时间
-import cProfile
 cProfile.run('heap(array)')
 
 
