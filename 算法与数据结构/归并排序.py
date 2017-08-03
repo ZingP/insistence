@@ -39,9 +39,9 @@ def merge_sort(array, low, high):
 
 array = list(range(100000))
 random.shuffle(array)
-merge_sort(array, 0, len(array)-1)
-print(array)
 cProfile.run('merge_sort(array, 0, len(array)-1)')
+print(array)
+
 
 
 
