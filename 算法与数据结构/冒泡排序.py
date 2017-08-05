@@ -22,6 +22,9 @@ def bubble_sort(array):
             return
 
 li = list(range(10000))
+# li = list()
+# for i in range(10000):
+#     li.append(random.randint(0, 10000))
 random.shuffle(li)
 cProfile.run('bubble_sort(li)')
 print(li)
