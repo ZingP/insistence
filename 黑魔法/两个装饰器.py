@@ -7,6 +7,7 @@
 def der2(func):
     def wraper(*args, **kwargs):
         st = "oh "
+        print("装饰器2中：", func)
         res = func()
         st += res
         print(st)
@@ -16,6 +17,7 @@ def der2(func):
 def deractor(func):
     def wraper(*args, **kwargs):
         st = "dear "
+        print("装饰器1中:", func)
         res = func()
         st += res
         print(st)
@@ -29,3 +31,13 @@ def index():
     return "hello"
 
 index()
+
+# 可以注意到两个装饰器中的func已经不一样了
+"""
+运行结果：
+装饰器2中： <function deractor.<locals>.wraper at 0x0303D6F0>
+装饰器1中: <function index at 0x0303D738>
+hello
+dear hello
+oh dear hello
+"""
