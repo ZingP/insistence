@@ -6,17 +6,7 @@
 没有子节点的节点是叶节点，没有父节点的节点就是根节点。树的深度，就是有多少层
 """
 import random
-import time
-
-def cost_time(func):
-    def wrapper(*args, **kwargs):
-        start = time.time()
-        func(*args, **kwargs)
-        end = time.time()
-        cost = "cost_time>>:%s" % (end-start)
-        return cost
-    return wrapper
-
+import cProfile
 
 def sift(array, left, right):
     """调整"""
@@ -34,7 +24,6 @@ def sift(array, left, right):
             break
     array[i] = tmp                                  # 最后i的位置由于是之前大孩子上位了，是空的，而这个位置是根节点的正确位置。
 
-
 def heap(array):
     n = len(array)
     # 建堆，从最后一个有孩子的父亲开始，直到根节点
@@ -50,12 +39,11 @@ def heap(array):
 
 array = list(range(100000))
 random.shuffle(array)
-heap(array)
+cProfile.run('heap(array)')   # 运行时间
 print(array)
 
-# 运行时间
-import cProfile
-cProfile.run('heap(array)')
+
+
 
 
 
