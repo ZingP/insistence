@@ -10,7 +10,6 @@ from gevent import monkey
 
 monkey.patch_all()
 
-
 def server(port):
     s = socket.socket()
     s.bind(('0.0.0.0', port))
