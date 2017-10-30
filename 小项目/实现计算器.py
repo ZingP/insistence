@@ -62,15 +62,15 @@ def init_action(formula):
     # 通过re模块去掉空格
     formula = re.sub(' ', '', formula)
     # 以横杠数字为分隔符进行切分
-    formula = [i for i in re.split('(\-\d+\.*\d*)', formula) if i]
+    formula_1 = [i for i in re.split('(\-\d+\.*\d*)', formula) if i]
     # 作为最后生成的列表添加入此列表
     formula_ele_list = []
     while True:
         # 如果列表为空退出循环
-        if len(formula) == 0:
+        if len(formula_1) == 0:
             break
         # 利用列表的pop方法把最后一个值弹出来
-        exp = formula.pop(0)
+        exp = formula_1.pop(0)
         # print('==>',exp)
         # 判断是负数还是减号。
         if len(formula_ele_list) == 0 and re.search('^\-\d+\.*\d*$', exp):
@@ -127,7 +127,7 @@ def main(formula_list):
                     num1 = number_stack.pop()
                     # 执行计算
                     # 计算之后压入数字栈
-                    number_stack.append(calculate(num1,symbol,num2))
+                    number_stack.append(calculate(num1, symbol, num2))
     while len(symbol_stack) != 0:
         symbol = symbol_stack.pop()
         num2 = number_stack.pop()
@@ -144,4 +144,3 @@ if __name__ == '__main__':
     r = main(formula_li)
     print('====>', r)
     print('最终结果是：%s' % r[0][0])
-
