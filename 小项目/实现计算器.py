@@ -137,8 +137,8 @@ def main(formula_list):
     return number_stack, symbol_stack
 
 if __name__ == '__main__':
-    # strings = '1 - 2 * ( (60-30 +(-40/5) * (9-2*5/3 + 7 /3*99/4*2998 +10 * 568/14 )) - (-4*3)/ (16-3*2)'
-    strings = '-1-2*(-2+3)'
+    strings = '1 - 2 * ( (60-30 +(-40/5) * (9-2*5/3 + 7 /3*99/4*2998 +10 * 568/14 )) - (-4*3)/ (16-3*2))'
+    # strings = '-1-2*(-2+3)'
     formula_li = init_action(strings)
     print(formula_li)
     r = main(formula_li)
