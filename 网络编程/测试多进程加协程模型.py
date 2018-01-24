@@ -9,6 +9,7 @@ from concurrent.futures import ProcessPoolExecutor
 import multiprocessing
 import gevent
 from gevent import monkey
+import threading
 import requests
 
 # import affinity
@@ -16,20 +17,21 @@ import requests
 # print(cpu_count)
 monkey.patch_all()
 
-def func(i):
-    url = "http://www.cnblogs.com/zingp/p/5878330.html"
-    res = requests.get(url=url)
-    print(i, res.status_code)
-
-
 # def func(i):
-#     print("协程：", i)
-#     gevent.sleep(1)
+#     url = "http://www.cnblogs.com/zingp/p/5878330.html"
+#     res = requests.get(url=url)
+#     print(i, res.status_code)
+
+
+def func(i):
+    print("协程：", i)
+    gevent.sleep(1)
+    print("线程id:", threading.current_thread())
 
 def tell(i):
     print("进程", i, os.getpid())
     gevent_list = []
-    for j in range(600):
+    for j in range(10):
         g = gevent.spawn(func, (j,))
         gevent_list.append(g)
     gevent.joinall(gevent_list)
@@ -37,7 +39,6 @@ def tell(i):
     print(time.time())
 
 if __name__ == '__main__':
-    # tell(2)
     # 循环创建 10个子进程
 
     print(time.time())
