@@ -19,7 +19,7 @@ def run_cmd(host, port, user, passwd, cmd):
     else:
         print(stderr.decode())
 
-def run_cmd_pkey(host, port, user, rsa_file):
+def run_cmd_pkey(host, port, user, rsa_file, cmd):
     """
     linux 端创建秘钥  ssh-keygen
     把要连的机子的公钥改名 mv id_rsa.pub authorized_keys
@@ -30,7 +30,7 @@ def run_cmd_pkey(host, port, user, rsa_file):
 
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())               # 允许连接不在know_hosts文件中的主机
     ssh.connect(hostname=host, port=port, username=user, pkey=private_key)  # 连接服务器
-    stdin, stdout, stderr = ssh.exec_command("df")                          # 执行命令
+    stdin, stdout, stderr = ssh.exec_command(cmd)                          # 执行命令
 
     stdout = stdout.read()
     stderr = stderr.read()
