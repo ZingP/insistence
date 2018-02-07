@@ -31,7 +31,7 @@ class Solution:
             count = len(st)
         return count
 
-# o(n)
+# O(n)
 class Solution:
     def lengthOfLongestSubstring(self, s):
         """
