@@ -15,6 +15,8 @@ def func(i):
 
 if __name__ == '__main__':
     pool = ProcessPoolExecutor(4)
+    lis = []
     for i in range(10):
+        lis.append(i)
         pool.submit(func, [i, ])
     pool.shutdown()

@@ -15,7 +15,10 @@ def tell(i):
 
 if __name__ == '__main__':
     ex = ThreadPoolExecutor(100)
+    a = "ddd"
     for i in range(1000):
         ex.submit(tell, (i,))
     ex.shutdown(wait=True)  # 此函数用于释放异步执行操作后的系统资源。
+
+    print(1222222222)
 
