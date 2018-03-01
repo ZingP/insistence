@@ -17,7 +17,7 @@ def logger_set():
     NOTSET = 0
     """
     logging.basicConfig(
-        filename='mylog.log',
+        filename='logs/mylog.log',
         format='%(asctime)s %(levelname)s %(module)s [%(message)s]',
         datefmt='%Y-%m-%d %H:%M:%S',
         level=logging.INFO)
