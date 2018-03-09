@@ -3,45 +3,21 @@
 # Author: "Zing-p"
 # Date: 2018/1/23
 
-#! /usr/bin/env python3
-# -*- coding:utf-8 -*-
-
-from sqlalchemy import ForeignKey,create_engine
-from sqlalchemy.orm import relationship
-from sqlalchemy import Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import Table, Column, Integer, String, ForeignKey
+from sqlalchemy.orm import relationship
+from sqlalchemy.ext.declarative import declarative_base
 
 
-engine = create_engine("mysql+pymysql://root:admin123@localhost/test_db?charset=utf8")
+engine = create_engine("mysql+pymysql://root:Root-123@10.143.57.161/lyydb?charset=utf8")
 Base = declarative_base()  # 生成orm基类
-
 Session_class = sessionmaker(bind=engine)  # 创建与数据库的会话session class ,注意,这里返回给session的是个class,不是实例
 session = Session_class()  # 生成session实例
 
-
-#! /usr/bin/env python3
-# -*- coding:utf-8 -*-
-
-from sqlalchemy import Table, Column, Integer,String, ForeignKey
-from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
-
-
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-
-
-engine = create_engine("mysql+pymysql://root:admin123@localhost/test_db?charset=utf8")
-Base = declarative_base()
-
-SessionCls = sessionmaker(bind=engine)  # 创建与数据库的会话session class ,注意,这里返回给session的是个class,不是实例
-session = SessionCls()
-
 grade_m2m_student = Table('grade_student', Base.metadata,
-                                 Column('grade_id', Integer, ForeignKey('grade.id')),
-                                 Column('student_id', Integer, ForeignKey('student.id')),
-                                 )
+                          Column('grade_id', Integer, ForeignKey('grade.id')),
+                           Column('student_id', Integer, ForeignKey('student.id')),)
 
 class Grade(Base):            # 定义班级表
     """班级表"""
@@ -58,7 +34,7 @@ class Student(Base):
     id = Column(Integer, primary_key=True,autoincrement=True)
     name = Column(String(32))
     qq = Column(String(32))
-    grades = relationship("Grade",secondary=grade_m2m_student,backref="students")
+    grades = relationship("Grade", secondary=grade_m2m_student, backref="students")
 
     def __repr__(self):
         return "<Student-->id:%s name:%s qq:%s>" % (self.id,self.name,self.qq)
@@ -73,39 +49,39 @@ def create_grade(name):
     obj = Grade(name=name)
     return obj
 
-def create_student(name,qq):
+def create_student(name, qq):
     obj = Student(name=name,qq=qq)
     return obj
 
 
 # drop_db()  # 删除表结构
-# init_db()   # 创建表结构
+init_db()   # 创建表结构
 #
-# # 创建三个班级
-# grade_obj = []
-# grades = ["Python","Linux","Go"]
-# for grade in grades:
-#     obj = create_grade(grade)
-#     grade_obj.append(obj)
-# session.add_all(grade_obj)
-# session.commit()
-#
-# # 添加多个学生
-# stu_obj = []
-# students = [("杨幂","10001"),("赵丽颖","10002"),("刘亦菲","10003"),("胡歌","10004"),("勒布朗","10005"),("科比","10006"),("布兰妮","10007"),("林志玲","10008"),
-#              ("汤唯", "10009"),("张馨予","10010"),("赵伟彤","10011"),("李四","10012"),("王宝强","10013"),
-#              ("陈意涵", "10014"),("周冬雨","10015"),("林心如","10016"),("范冰冰","10017"),("梁静茹","10018"),("武藤兰","10019"),("小苍","10020"),]
-# for i in range(0,14):
-#     obj = create_student(students[i][0],students[i][1])
-#     obj.grades = [grade_obj[0],grade_obj[1]]  # 为学生关联班级
-#     stu_obj.append(obj)
-# for j in range(14,20):
-#     obj = create_student(students[j][0], students[j][1])
-#     obj.grades = grade_obj   # 为学生关联班级
-#     stu_obj.append(obj)
-# session.add_all(stu_obj)
-# session.commit()
-# print("ok...")
+# 创建三个班级
+grade_obj = []
+grades = ["Python","Linux","Go"]
+for grade in grades:
+    obj = create_grade(grade)
+    grade_obj.append(obj)
+session.add_all(grade_obj)
+session.commit()
+
+# 添加多个学生
+stu_obj = []
+students = [("杨幂","10001"),("赵丽颖","10002"),("刘亦菲","10003"),("胡歌","10004"),("勒布朗","10005"),("科比","10006"),("布兰妮","10007"),("林志玲","10008"),
+             ("汤唯", "10009"),("张馨予","10010"),("赵伟彤","10011"),("李四","10012"),("王宝强","10013"),
+             ("陈意涵", "10014"),("周冬雨","10015"),("林心如","10016"),("范冰冰","10017"),("梁静茹","10018"),("武藤兰","10019"),("小苍","10020"),]
+for i in range(0,14):
+    obj = create_student(students[i][0],students[i][1])
+    obj.grades = [grade_obj[0],grade_obj[1]]  # 为学生关联班级
+    stu_obj.append(obj)
+for j in range(14,20):
+    obj = create_student(students[j][0], students[j][1])
+    obj.grades = grade_obj   # 为学生关联班级
+    stu_obj.append(obj)
+session.add_all(stu_obj)
+session.commit()
+print("ok...")
 
 # 从grade表中通过.students查询Python班 所有的学生
 grade_obj = session.query(Grade).filter_by(name="Python").first()
