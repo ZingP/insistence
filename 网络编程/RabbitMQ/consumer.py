@@ -12,7 +12,7 @@ channel = connection.channel()
 channel.queue_declare(queue='hello')
 
 def callback(ch, method, properties, body):
-    print(" 收到： %r" % body)
+    print(" 收到： %r" % body.decode("utf-8"))
 
 channel.basic_consume(callback,
                       queue='hello',
