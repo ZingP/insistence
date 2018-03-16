@@ -13,7 +13,7 @@ channel.queue_declare(queue='hello')
 # RabbitMQ a message can never be sent directly to the queue, it always needs to go through an exchange.
 channel.basic_publish(exchange='',
                       routing_key='hello',
-                      body='你好！'.encode("utf-8"))
-print(" 发送 '你好！'")
+                      body='hello world~~'.encode("utf-8"))
+print(" 发送 'hello world'")
 connection.close()
 
