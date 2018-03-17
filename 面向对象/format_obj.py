@@ -22,5 +22,7 @@ class Date:
             code = 'ymd-'
         fmt = _formats[code]
         return fmt.format(d=self)
+
+
 day = Date(2018, 3, 16)
 print(format(day, "ymd"))
