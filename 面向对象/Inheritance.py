@@ -3,7 +3,7 @@
 # Author: "liuyouyuan"
 # Date: 2018/3/17
 
-class A:
+class A():
     def run(self):
         print("run A")
 
@@ -25,7 +25,6 @@ class D(B, C):
 class E(B, C):
     pass
 
-
 a = A()
 b = B()
 c = C()
@@ -33,8 +32,12 @@ d = D()
 e = E()
 
 # b.run()  # A,B
-# d.run()  # A,C,B,D
-e.run()    # A, C, B
+d.run()
+# run A
+# run C
+# run B
+# run D
+# e.run()    # A, C, B
 
 
 

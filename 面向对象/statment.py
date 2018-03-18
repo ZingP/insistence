@@ -58,5 +58,6 @@ print(man1.name)     # YouYuan Liu
 man1.hello()         # Hello, my name is YouYuan Liu, i'm 25 years old
 print(woman1.age)    # 38
 
-
 woman1.birth_children("little Jeo")   # [Jeo Chen] birthed [little Jeo]
+print(woman1.__class__)
+print(woman1)
