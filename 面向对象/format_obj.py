@@ -12,6 +12,7 @@ _formats = {
     }
 
 class Date:
+    """descrpt.."""
     def __init__(self, year, month, day):
         self.year = year
         self.month = month
@@ -26,3 +27,5 @@ class Date:
 
 day = Date(2018, 3, 16)
 print(format(day, "ymd"))
+
+print(Date.__dict__)
