@@ -5,31 +5,47 @@
 import time
 from contextlib import contextmanager
 
-class Person(object):
+from socket import socket, AF_INET, SOCK_STREAM
 
-    def __init__(self, name):
-        self.name = name
-        self.list = []
+class Connection:
+    def __init__(self, address, family=AF_INET, type=SOCK_STREAM):
+        self.address = address
+        self.family = family
+        self.type = type
+        self.connections = []
 
     def __enter__(self):
-        print("in __enter__")
-        self.list.append(time.time())
-        return self.list
+        sock = socket(self.family, self.type)
+        sock.connect(self.address)
+        self.connections.append(sock)
+        return sock
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        print("in __exit__")
-        self.list.pop()
+    def __exit__(self, exc_ty, exc_val, tb):
+        self.connections.pop().close()
 
+
+# conn = Connection(('www.python.org', 80))
+# with conn as s1:
+#     print(s1)
+#     with conn as s2:
+#         print(s2)
+
+import time
+from contextlib import contextmanager
 # 来看一个装饰器版本的上下文管理器
 # 检查代码消耗时间块
 @contextmanager
-def timethis(label):
+def timecount(name):
     start = time.time()
     try:
         yield
     finally:
         end = time.time()
-        print('{}: {}'.format(label, end - start))
+        print('{}: {}'.format(name, end - start))
+
+# with timecount('cost time:'):
+#     time.sleep(2)
+# cost time:: 2.000200033187866
 
 # 更高级的事务管理
 @contextmanager
@@ -42,21 +58,16 @@ lis = [1, 2, 3]
 with list_transaction(lis) as work:
     work.append(5)
     work.append(6)
+    print(lis)
+    raise RuntimeError("回滚")
+# print(lis)
 
-print(lis)
-with list_transaction(lis) as work:
-    work.append(5)
-    work.append(6)
-    # raise RuntimeError("oop")
-print(lis)
+# with list_transaction(lis) as work:
+#     work.append(5)
+#     work.append(6)
+#     raise RuntimeError("oop")
+# print(lis)
 
-with timethis('counting'):
-    n = 10000000
-    while n > 0:
-        n -= 1
 
-with Person("Liu You yuan") as p:
-    print(p[0])
-    time.sleep(2)
 
 
