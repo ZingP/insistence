@@ -83,7 +83,7 @@ def init_action(formula):
                 continue
         new_l = [i for i in re.split('([\+\-\*\/\(\)])', exp) if i]
         formula_ele_list += new_l
-        print(formula_ele_list)
+    print(formula_ele_list)
     return formula_ele_list
 
 def main(formula_list):
@@ -91,10 +91,10 @@ def main(formula_list):
     number_stack = []
     symbol_stack = []
     for ele in formula_list:
-        # print('-'*20)
-        # print('数字栈', number_stack)
-        # print('运算符栈', symbol_stack)
-        # print('待入栈运算符', ele)
+        print('-'*20)
+        print('数字栈', number_stack)
+        print('运算符栈', symbol_stack)
+        print('待入栈运算符', ele)
         ret = is_symbol(ele)
         if not ret:
             # 压入数字栈
@@ -137,11 +137,11 @@ def main(formula_list):
     return number_stack, symbol_stack
 
 if __name__ == '__main__':
-    strings = '1 - 2 * ( (60-30 +(-40/5) * (9-2*5/3 + 7 /3*99/4*2998 +10 * 568/14 )) - (-4*3)/ (16-3*2))'
-    # strings = '-1-2*(-2+3)'
-    strings = input("请输入算式：")
+    # strings = '1 - 2 * ( (60-30 +(-40/5) * (9-2*5/3 + 7 /3*99/4*2998 +10 * 568/14 )) - (-4*3)/ (16-3*2))'
+    strings = '-1-2*(-2+3)'
+    # strings = input("请输入算式：")
     formula_li = init_action(strings)
     # print(formula_li)
     r = main(formula_li)
     # print('====>', r)
-    print('最终结果是：%s' % r[0][0])
+    print('最终结果是：', r[0][0])

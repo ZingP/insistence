@@ -50,13 +50,13 @@ def Get_proxy_ip():
 
 def Proxy_read(proxy_list, user_agent_list, i):
     proxy_ip = proxy_list[i]
-    print('当前代理ip：%s'%proxy_ip)
+    # print('当前代理ip：%s'%proxy_ip)
     user_agent = random.choice(user_agent_list)
-    print('当前代理user_agent：%s'%user_agent)
+    # print('当前代理user_agent：%s'%user_agent)
     sleep_time = random.randint(1,3)
-    print('等待时间：%s s' %sleep_time)
+    # print('等待时间：%s s' %sleep_time)
     time.sleep(sleep_time)
-    print('开始获取')
+    # print('开始获取')
     headers = {
             'Host': 's9-im-notify.csdn.net',
             'Origin':'http://blog.csdn.net',
@@ -69,11 +69,12 @@ def Proxy_read(proxy_list, user_agent_list, i):
     opener = request.build_opener(proxy_support)
     request.install_opener(opener)
 
-    req = request.Request(r'http://www.cnblogs.com/zingp/p/8525138.html',headers=headers)
+    req = request.Request(r'https://www.cnblogs.com/zingp/p/8631277.html',headers=headers)
     try:
         html = request.urlopen(req).read().decode('utf-8')
     except Exception as e:
-        print('******打开失败！******')
+        # print('******打开失败！******')
+        pass
     else:
         global count
         count +=1
