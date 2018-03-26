@@ -15,7 +15,6 @@ class PeriodicTimer:
     def start(self):
         t = threading.Thread(target=self.run)
         # t.daemon = True
-
         t.start()
 
     def run(self):
@@ -23,11 +22,13 @@ class PeriodicTimer:
             time.sleep(self._interval)
             with self._cv:
                  self._flag ^= 1
+                 print("self._flag::", self._flag)
                  self._cv.notify_all()
 
     def wait_for_tick(self):
         with self._cv:
             last_flag = self._flag
+            print("last_flag:", last_flag)
             while last_flag == self._flag:
                 self._cv.wait()
 
@@ -39,21 +40,15 @@ ptimer.start()
 def countdown(nticks):
     while nticks > 0:
         ptimer.wait_for_tick()
-        print('T-minus', nticks)
+        print('减函数', nticks)
         nticks -= 1
 
 def countup(last):
     n = 0
     while n < last:
         ptimer.wait_for_tick()
-        print('Counting', n)
+        print('加函数', n)
         n += 1
 
-# threading.Thread(target=countdown, args=(10,)).start()
-# threading.Thread(target=countup, args=(5,)).start()
-cd = threading.Condition()
-print(cd)
-# print(cd.notify_all())
-print(cd)
-# print(cd.wait())
-print(cd)
+threading.Thread(target=countdown, args=(10,)).start()
+threading.Thread(target=countup, args=(5,)).start()
