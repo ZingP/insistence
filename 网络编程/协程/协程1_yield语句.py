@@ -53,7 +53,9 @@ class TaskScheduler(object):
 # Example use
 sched = TaskScheduler()
 sched.new_task(sayHello(10))
-# sched.new_task(sayHello(5))
+sched.new_task(sayHello(5))
 sched.new_task(sayHi(15))
 sched.run()
+
+# yield 就相当于挂起任务的信号
 
