@@ -50,10 +50,8 @@ class TaskScheduler(object):
                 # 生成器结束
                 pass
 
-# Example use
 sched = TaskScheduler()
 sched.new_task(sayHello(10))
-sched.new_task(sayHello(5))
 sched.new_task(sayHi(15))
 sched.run()
 

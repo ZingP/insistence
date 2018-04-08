@@ -38,14 +38,14 @@ def is_operator(e):
 def formula_format(formula):
     # 去掉算式中的空格
     formula = re.sub(' ', '', formula)
-    # 以 '横杠数字' 分割， 其中正则表达式：(\-\d+\.*\d*) 括号内：
+    # 以 '横杠数字' 分割， 其中正则表达式：(\-\d+\.?\d*) 括号内：
     # \- 表示匹配横杠开头； \d+ 表示匹配数字1次或多次；\.?表示匹配小数点0次或1次;\d*表示匹配数字1次或多次。
     formula_list = [i for i in re.split('(\-\d+\.?\d*)', formula) if i]
 
     # 最终的算式列表
     final_formula = []
     for item in formula_list:
-        # 第一个是以横杠开头的数字（包括小数）final_formula。机第一个是负数，横杠就不是减号
+        # 第一个是以横杠开头的数字（包括小数）final_formula。即第一个是负数，横杠就不是减号
         if len(final_formula) == 0 and re.search('^\-\d+\.?\d*$', item):
             final_formula.append(item)
             continue
@@ -115,15 +115,15 @@ def final_calc(formula_list):
                 # decision 函数做决策
                 tag = decision(op_stack[-1], e)
                 if tag == -1:
-                    # 如果是-1压入符号栈进入下一次循环
+                    # 如果是-1压入运算符栈进入下一次循环
                     op_stack.append(e)
                     break
                 elif tag == 0:
-                    # 如果是0弹出栈内元素，进入下一次循环
+                    # 如果是0弹出运算符栈顶元素(，丢弃当前元素),进入下一次循环
                     op_stack.pop()
                     break
                 elif tag == 1:
-                    # 如果是1弹出栈内元素，弹出数字元素。
+                    # 如果是1弹出运算符栈内元素，弹出数字栈内元素。
                     op = op_stack.pop()
                     num2 = num_stack.pop()
                     num1 = num_stack.pop()

@@ -15,9 +15,10 @@ f = open("111.jpg", "rb")
 # msg = bytes(input(">>:"), encoding="utf8")
 # chunk = f.read()
 # s.sendall(chunk)
-file_size = len(f.read())
-data = {"filename": "111.jpg", "file_size": file_size, }
-s.sendall(bytes(json.dumps(data), encoding="utf-8"))
+# file_size = len(f.read())
+# data = {"filename": "111.jpg", "file_size": file_size, }
+# while True:
+# s.sendall(bytes(json.dumps(data), encoding="utf-8"))
 result = s.recv(1024)
 print(result)
 
