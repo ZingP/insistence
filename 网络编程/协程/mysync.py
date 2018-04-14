@@ -145,7 +145,6 @@ if __name__ == '__main__':
                 print('Got connection from ', a)
                 print("got", c)
                 self.sched.new(self.client_handler(Socket(c)))
-
         def client_handler(self, client):
             while True:
                 try:

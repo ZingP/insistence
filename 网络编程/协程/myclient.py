@@ -14,6 +14,7 @@ s.connect((host, port))
 
 # while True:
 msg = input("请输入信息:")
+
 s.sendall(bytes(msg, encoding='utf-8'))
 time.sleep(2)
 
