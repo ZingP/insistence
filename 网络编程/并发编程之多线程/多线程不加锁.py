@@ -19,7 +19,7 @@ if __name__ == '__main__':
     array = [0, 1, 4]
     thread_obj_list = []
 
-    for i in range(50):
+    for i in range(50000):
         t = Thread(target=add_one, args=(array,))
         t.start()
         thread_obj_list.append(t)
