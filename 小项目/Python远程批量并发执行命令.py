@@ -12,8 +12,8 @@ class SshExc(object):
         self.hosts = [h for h in hosts]
         self.cmds = [c for c in cmds]
         self.max_worker = max_worker   # 最大并发线程数
-        self.count = 0         # 统计上线成功的IP数量
-        self.fail_hosts = []   # 存放失败的机器IP
+        self.success_hosts = []
+        self.failed_hosts = []   # 存放失败的机器IP
 
     @staticmethod
     def run_cmd(cmd):
@@ -75,28 +75,39 @@ class SshExc(object):
             if code != 0:
                 info = self.color_str(info, "red")
                 is_success = False
-                if host not in self.fail_hosts:
-                    self.fail_hosts.append(host)
+                if host not in self.failed_hosts:
+                    self.failed_hosts.append(host)
             else:
                 # 执行成功
-                if host in self.fail_hosts:
-                    self.fail_hosts.remove(host)
                 info = self.color_str(info, "green")
             print(info)
         if is_success:
-            self.count += 1
+            self.success_hosts.append(host)
+            if host in self.failed_hosts:
+                self.failed_hosts.remove(host)
 
     def handle_fail_hosts(self):
         """由于并发某些命令, 可能会失败，对失败机器从新执行"""
-        while len(self.fail_hosts) != 0:
-            self.hosts = self.fail_hosts
+        while len(self.failed_hosts) != 0:
+            self.hosts = self.failed_hosts
             self.run()
-        info = "Success host num {}".format(self.count)
-        info = self.color_str(info, "yellow")
+
+    def overview(self):
+        """展示中的执行结果"""
+        for i in self.success_hosts:
+            print(self.color_str(i, "green"))
+        print("-" * 30)
+        for j in self.failed_hosts:
+            print(self.color_str(j, "red"))
+        info = "Success hosts {}; Failed hosts {}."
+        s, f = len(self.success_hosts), len(self.failed_hosts)
+        info = self.color_str(info.format(s, f), "yellow")
         print(info)
 
 if __name__ == '__main__':
-    cmds = []
+
     hosts = []
+    cmds = []
     obj = SshExc(hosts, cmds)
     obj.run()
+    obj.overview()
