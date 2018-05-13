@@ -67,7 +67,7 @@ class SshExc(object):
     def callback(self, obj):
         """回调函数，处理返回结果"""
         host, rlist = obj.result()
-        print(self.color_str("{} result".format(host), "yellow"))
+        print(self.color_str("{} execute detail:".format(host), "yellow"))
         is_success = True   # 对于一台机器，命令是否全部执行成功
         for item in rlist:
             cmd, [code, res] = item
