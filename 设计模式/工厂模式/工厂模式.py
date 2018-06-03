@@ -5,16 +5,19 @@
 
 from abc import ABCMeta, abstractmethod
 
+# 抽象产品角色
 class Payment(metaclass=ABCMeta):
 
     @abstractmethod
     def pay(self, money):
         pass
 
+# 具体产品角色
 class ApplePay(Payment):
     def pay(self, money):
         print("苹果支付 {} 元.".format(money))
 
+# 具体产品角色
 class AliPay(Payment):
     def __init__(self, enable_banlance=False):
         self.balance = enable_banlance
@@ -25,6 +28,7 @@ class AliPay(Payment):
         else:
             print("支付宝支付 {} 元.".format(money))
 
+# 工厂角色
 class PaymentFactory(object):
     def create_paymemt(self, method):
         if method == "alipay":
