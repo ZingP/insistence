@@ -6,7 +6,7 @@
 from socket import *
 import struct,json
 
-ip_port =('10.153.57.161', 8080)
+ip_port = ('10.153.57.161', 8080)
 client=socket(AF_INET, SOCK_STREAM)
 client.connect(ip_port)
 
