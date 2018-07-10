@@ -39,7 +39,7 @@ def heap(array):
 
 array = list(range(100000))
 random.shuffle(array)
-cProfile.run('heap(array)')   # 运行时间
+cProfile.run('heap(array)')    # 运行时间
 print(array)
 
 

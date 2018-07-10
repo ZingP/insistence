@@ -80,7 +80,7 @@ def max_sum_nln(array):
 
 if __name__ == '__main__':
     import random
-    list_a = list(range(-100, 100))
+    list_a = list(range(-10000, 10000))
     random.shuffle(list_a)
     print(list_a)
     print(ma_sum_o_n(list_a))

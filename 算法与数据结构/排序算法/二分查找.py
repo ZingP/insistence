@@ -11,7 +11,7 @@ def bin_search(data_set, val):
     low = 0                      # 第一个索引
     high = len(data_set) - 1     # 列表最后一个元素索引
     while low <= high:          # 当左边小于等于右边，只要列表还有元素
-        mid = (low+high)//2      # 取列表中间的元素索引
+        mid = (low+high) // 2      # 取列表中间的元素索引
         if data_set[mid] == val:  # 如果中间元素跟查找的相等，返回这个元素的索引？
             return mid
         elif data_set[mid] < val:   # 如果中间元素小于val,说明应该在右边找，那么low就等于mid+1
