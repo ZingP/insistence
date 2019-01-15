@@ -11,10 +11,10 @@ Explanation: 342 + 465 = 807.
 """
 
 # Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
 
 class Solution:
     def addTwoNumbers(self, l1, l2):
@@ -40,9 +40,8 @@ class Solution:
         return head.next
             
  
-
  # 下面这个感觉写法更简洁，但是耗时更多
- class Solution:
+class Solution2(object):
     def addTwoNumbers(self, l1, l2):
         """
         :type l1: ListNode
