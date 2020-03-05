@@ -5,6 +5,7 @@ HOST = "10.144.123.183"
 PORT = 6379
 PASSWD = "redis123"
 
+# 不推荐
 # redisObj = redis.Redis(host=HOST, port=PORT, password=PASSWD)
 # res = redisObj.set("key", "v1")
 # print(res)
