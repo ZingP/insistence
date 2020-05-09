@@ -16,6 +16,17 @@ def read_excel_row(excelname):
         li.append(row)
     return li
 
+def read_excel(excelname, sheet="Sheet1"):
+    """按行读Excel，返回数据和列名的列表"""
+    data = []
+    workbook = xlrd.open_workbook(excelname)
+    sheet = workbook.sheet_by_name(sheet)
+    column_names = sheet.row_values(0)
+    for i in range(1, sheet.nrows):
+        row = sheet.row_values(i)
+        data.append(row)
+    return data, column_names
+
 def write2excel(data_list, file_path, column_names):
     workbook = xlsxwriter.Workbook(file_path)
     sheet1 = workbook.add_worksheet()
